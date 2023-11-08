@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Check release version in Dockerfile and setup.py
+
+VERSION=`python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"`
+
+echo ${VERSION}
+
+twine upload dist/whyis_milvus-${VERSION}-py3-none-any.whl
+
+git tag -f v${VERSION}
+
+git push

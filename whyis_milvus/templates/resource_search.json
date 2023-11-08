@@ -1,0 +1,9 @@
+{{
+  app.databases.milvus.similar(
+        args.space,
+        subject=this.identifier,
+        graph=args.get("graph", None),
+        limit=args.get('limit', 10)  | int,
+        offset=args.get('offset', 0) | int
+  ) | tojson
+}}

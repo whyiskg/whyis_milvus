@@ -1,0 +1,6 @@
+{{app.databases.milvus.get(
+    this.identifier,
+    uri=args.get("entity",None),
+    graph=args.get("graph", None)
+  ) | tojson
+}}

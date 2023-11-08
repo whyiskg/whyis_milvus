@@ -1,0 +1,7 @@
+{{app.databases.milvus.search(
+    this.identifier,
+    args.vector                  | fromjson, 
+    limit=args.get('limit', 10)  | int,
+    offset=args.get('offset', 0) | int
+  ) | tojson
+}}
