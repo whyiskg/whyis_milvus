@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name='whyis-milvus'
-version='0.0.1'
+version='0.1.1'
 dependencies=[
   'whyis',
   'pymilvus',
@@ -13,7 +13,7 @@ dependencies=[
   'numpy'
 ]
 [tool.setuptools]
-packages=['whyis_milvus']
+packages=['whyis_milvus','whyis_milvus.entity_linker']
 
 [project.entry-points.whyis]
 whyis_milvus = "whyis_milvus:MilvusPlugin"

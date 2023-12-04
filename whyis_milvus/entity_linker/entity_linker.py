@@ -74,7 +74,7 @@ class MilvusEntityResolver(EntityResolverListener):
 
     def on_resolve(self, term, type=None, context=None, label=True):
         term_embedding = self.model.encode(term)
-        candidates = self.vector_space.search(term_embedding, 10)
+        candidates = self.vector_space.search(term_embedding, limit=10)
         perfect_matches = [c for c in candidates if c['distance'] == 0]
 
 

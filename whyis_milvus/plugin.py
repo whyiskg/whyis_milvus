@@ -27,6 +27,8 @@ class VectorSpace:
         self.identifier = vs_resource.identifier
         self.db = db
         self.collection_id = self.resource.value(NS.dc.identifier).value
+        self.index_name = self.collection_id+"_v"
+        #self.field_names.append(self.vector_field_name)
         self.extent = self.resource.value(NS.whyis.hasExtent)
         self.extent = tuple(json.loads(str(self.extent)))
         self.dimensions = reduce(lambda a, b: a*b, self.extent)
@@ -67,7 +69,7 @@ class VectorSpace:
                                 dtype=DataType.VARCHAR,
                                 max_length=65535),
                     FieldSchema(
-                        name="v",
+                        name='v',
                         dtype=DataType.FLOAT_VECTOR,
                         dim=dimensions
                     ),
@@ -93,14 +95,21 @@ class VectorSpace:
                 metric_type = self.distance_metric
                 index_type = self.index_type
                 self._collection.create_index(
-                    field_name="v",
+                    field_name='v',
+                    index_name=self.index_name,
                     index_params={
                         "metric_type" : metric_type,
                         "index_type" : index_type
                     }
                 )
-                self._collection.create_index(field_name="subject")
-                self._collection.create_index(field_name="graph")
+                # self._collection.create_index(
+                #     field_name="subject",
+                #     index_name="subject_index_"+coll_name
+                # )
+                # self._collection.create_index(
+                #     field_name="graph",
+                #     index_name="graph_index_"+coll_name
+                # )
                 self._collection.load()
         return self._collection
 
@@ -145,7 +154,7 @@ class VectorSpace:
         print("searching %s"%self.identifier)
         result = self.collection.search(
             data=np.array([vector]),
-            anns_field="v",
+            anns_field='v',
             # the sum of `offset` in `param` and `limit`
             # should be less than 16384.
             param=search_params,
