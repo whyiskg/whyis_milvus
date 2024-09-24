@@ -2,7 +2,7 @@
 
 # Check release version in Dockerfile and setup.py
 
-VERSION=`python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"`
+VERSION=`python -c "import tomlkit; print(tomlkit.load(open('pyproject.toml', 'rb'))['project']['version'])"`
 
 echo ${VERSION}
 

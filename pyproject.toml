@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name='whyis-milvus'
-version='0.1.1'
+version='0.1.2'
 dependencies=[
   'whyis',
   'pymilvus',
@@ -13,8 +13,11 @@ dependencies=[
   'numpy'
 ]
 [tool.setuptools]
-packages=['whyis_milvus','whyis_milvus.entity_linker']
+packages=['whyis_milvus','whyis_milvus.entity_linker', 'whyis_milvus.templates']
 
 [project.entry-points.whyis]
 whyis_milvus = "whyis_milvus:MilvusPlugin"
 whyis_milvus_entity_linker = "whyis_milvus.entity_linker:MilvusEntityResolverPlugin"
+
+[tool.setuptools.package-data]
+whyis_milvus = ["static/**/*", "templates/*"]
